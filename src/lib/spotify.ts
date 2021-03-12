@@ -50,7 +50,9 @@ export async function getAccessToken() {
     const url = `${WEB_PLAYER_URL}/get_access_token`;
     const res = await fetch(url);
     token = await res.json();
-  } catch {}
+  } catch {
+    // do nothing
+  }
 
   return token;
 }
@@ -82,7 +84,7 @@ export async function getRecentlyPlayedTrack(accessToken: string) {
       },
     });
 
-    let data = await res.json();
+    const data = await res.json();
 
     if (data && data.items.length) {
       const { track: item, context } = data.items[0];
@@ -98,17 +100,13 @@ export async function getRecentlyPlayedTrack(accessToken: string) {
 export async function pause(deviceId: string, accessToken: string) {
   const url = `${END_POINT}/v1/me/player/pause?device_id=${deviceId}`;
 
-  try {
-    const result = await fetch(url, {
-      method: 'PUT',
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-      },
-    });
-    return result;
-  } catch (e) {
-    throw e;
-  }
+  const result = await fetch(url, {
+    method: 'PUT',
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
+  return result;
 }
 
 export async function play(songInfo: TrackInfo, deviceId: string, accessToken: string) {
@@ -118,48 +116,36 @@ export async function play(songInfo: TrackInfo, deviceId: string, accessToken: s
     position_ms: songInfo.progressMs, // the time that current plays
   };
 
-  try {
-    return await fetch(url, {
-      method: 'PUT',
-      body: JSON.stringify(postData),
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${accessToken}`,
-      },
-    });
-  } catch (e) {
-    throw e;
-  }
+  return await fetch(url, {
+    method: 'PUT',
+    body: JSON.stringify(postData),
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
 }
 
 export async function next(deviceId: string, accessToken: string) {
   const url = `${END_POINT}/v1/me/player/next?device_id=${deviceId}`;
 
-  try {
-    return await fetch(url, {
-      method: 'POST',
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-      },
-    });
-  } catch (e) {
-    throw e;
-  }
+  return await fetch(url, {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
 }
 
 export async function prev(deviceId: string, accessToken: string) {
   const url = `${END_POINT}/v1/me/player/previous?device_id=${deviceId}`;
 
-  try {
-    return await fetch(url, {
-      method: 'POST',
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-      },
-    });
-  } catch (e) {
-    throw e;
-  }
+  return await fetch(url, {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
 }
 
 export async function checkSavedTrack(accessToken: string, ids: string) {
@@ -186,17 +172,13 @@ export async function saveTrack(songInfo: TrackInfo, accessToken: string) {
     ids: [songInfo.id],
   };
 
-  try {
-    return await fetch(url, {
-      method: 'PUT',
-      body: JSON.stringify(postData),
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-      },
-    });
-  } catch (e) {
-    throw e;
-  }
+  return await fetch(url, {
+    method: 'PUT',
+    body: JSON.stringify(postData),
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
 }
 
 export async function removeTrack(songInfo: TrackInfo, accessToken: string) {
@@ -206,30 +188,22 @@ export async function removeTrack(songInfo: TrackInfo, accessToken: string) {
     ids: [songInfo.id],
   };
 
-  try {
-    return await fetch(url, {
-      method: 'DELETE',
-      body: JSON.stringify(postData),
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-      },
-    });
-  } catch (e) {
-    throw e;
-  }
+  return await fetch(url, {
+    method: 'DELETE',
+    body: JSON.stringify(postData),
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
 }
 
 export async function repeat(mode: RepeatMode, accessToken: string) {
   const url = `${END_POINT}/v1/me/player/repeat?state=${mode}`;
 
-  try {
-    return await fetch(url, {
-      method: 'PUT',
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-      },
-    });
-  } catch (e) {
-    throw e;
-  }
+  return await fetch(url, {
+    method: 'PUT',
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
 }

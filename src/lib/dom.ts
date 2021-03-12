@@ -335,7 +335,7 @@ export function registerEvents(token: Token, device: Device, playback: TrackInfo
     }
   };
 
-  btnRepeat.onclick = async function (e) {
+  btnRepeat.onclick = async function () {
     let mode: RepeatMode = 'off';
 
     switch (playback.repeatState) {
