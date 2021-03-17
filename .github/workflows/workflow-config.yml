@@ -36,6 +36,8 @@ jobs:
         run: npm ci
       - name: Run Type check
         run: npm run typecheck
+      - name: Run link check
+        run: npm run lint
       - name: Run Test
         run: npm test -- --coverage
       - name: Trigger Codecov

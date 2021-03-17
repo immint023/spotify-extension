@@ -24,7 +24,7 @@ function mockFetchResolve(data?) {
     Promise.resolve({
       ok: true,
       json: () => data,
-    })
+    }),
   );
 }
 
